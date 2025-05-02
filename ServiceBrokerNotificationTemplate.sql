@@ -104,15 +104,18 @@ BEGIN
 					FOR JSON PATH
 				)
 
-				--Beginning of dialog...
-				DECLARE @ConvHandle UNIQUEIDENTIFIER
-				--Determine the Initiator Service, Target Service and the Contract 
-				BEGIN DIALOG @ConvHandle 
-					FROM SERVICE [ListenerService_b67e1033_057a_48a1_a40f_89438359f115_Name] TO SERVICE ''ListenerService_b67e1033_057a_48a1_a40f_89438359f115_Name'' ON CONTRACT [DEFAULT] WITH ENCRYPTION=OFF, LIFETIME = 60; 
-				--Send the Message
-				SEND ON CONVERSATION @ConvHandle MESSAGE TYPE [DEFAULT] (@message);
-				--End conversation
-				END CONVERSATION @ConvHandle;
+				IF(@message IS NOT NULL)
+				BEGIN
+					--Beginning of dialog...
+					DECLARE @ConvHandle UNIQUEIDENTIFIER
+					--Determine the Initiator Service, Target Service and the Contract 
+					BEGIN DIALOG @ConvHandle 
+						FROM SERVICE [ListenerService_b67e1033_057a_48a1_a40f_89438359f115_Name] TO SERVICE ''ListenerService_b67e1033_057a_48a1_a40f_89438359f115_Name'' ON CONTRACT [DEFAULT] WITH ENCRYPTION=OFF, LIFETIME = 60; 
+					--Send the Message
+					SEND ON CONVERSATION @ConvHandle MESSAGE TYPE [DEFAULT] (@message);
+					--End conversation
+					END CONVERSATION @ConvHandle;
+				END
 			END
 		END
 	')
