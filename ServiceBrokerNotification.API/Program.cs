@@ -1,4 +1,5 @@
 using ServiceBrokerNotification.API.HostedServices;
+using ServiceBrokerNotification.API.Hubs;
 using ServiceBrokerNotification.API.ModelChangeNotifications;
 using ServiceBrokerNotification.ModelChangeListener;
 
